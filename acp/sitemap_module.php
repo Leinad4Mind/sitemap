@@ -32,6 +32,8 @@ class sitemap_module
 	protected $template;
 	/** @var \phpbb\user */
 	protected $user;
+	/** @var ContainerInterface */
+	protected $phpbb_container;
 	/** @var string */
 	protected $phpbb_root_path;
 	/** @var string */
@@ -48,6 +50,8 @@ class sitemap_module
 	public function main($id, $mode)
 	{
 		global $user, $phpbb_container, $phpbb_admin_path, $board_url;
+
+		$this->container = $phpbb_container;
 
 		$user->add_lang_ext('lotusjeff/sitemap', 'sitemap_acp');
 
@@ -157,7 +161,7 @@ class sitemap_module
 			'LOTUSJEFF_SITEMAP_LINK'				=> $config['lotusjeff_sitemap_link'],
 			'LOTUSJEFF_SITEMAP_ADDITIONAL'			=> $config['lotusjeff_sitemap_additional'],
 			'LOTUSJEFF_SITEMAP_IMAGES'				=> $config['lotusjeff_sitemap_images'],
-			'LOTUSJEFF_SITEMAP_LOCATION'			=> generate_board_url() . '/app.php/sitemap/sitemap.xml',
+			'LOTUSJEFF_SITEMAP_LOCATION'			=> $this->container->get('controller.helper')->route('lotusjeff_sitemap_sitemapindex', array(), true, '', \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL),
 			'S_ERROR'                               => (sizeof($errors)) ? true : false,
 			'ERROR_MSG'                             => implode('<br />', $errors),
 			'U_ACTION'                     			=> $this->u_action,
