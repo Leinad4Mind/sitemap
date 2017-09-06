@@ -9,6 +9,12 @@
 
 namespace lotusjeff\sitemap\controller;
 
+use phpbb\auth\auth;
+use phpbb\cache\service;
+use phpbb\config\config;
+use phpbb\db\driver\driver_interface;
+use phpbb\controller\helper;
+use phpbb\event\dispatcher;
 use Symfony\Component\HttpFoundation\Response;
 
 class sitemap
@@ -42,15 +48,15 @@ class sitemap
 	/**
 	* Constructor
 	*
-	* @param \phpbb\auth\auth						$auth					Auth object
-	* @param \phpbb\cache\service		$cache
-	* @param \phpbb\config\config					$config					Config object
-	* @param \phpbb\db\driver\driver_interface		$db						Database object
-	* @param \phpbb\controller\helper				$helper					Helper object
-	* @param string									$php_ext				phpEx
+	* @param \phpbb\auth\auth						$auth						Auth object
+	* @param \phpbb\cache\service					$cache
+	* @param \phpbb\config\config					$config						Config object
+	* @param \phpbb\db\driver\driver_interface		$db							Database object
+	* @param \phpbb\controller\helper				$helper						Helper object
+	* @param string									$php_ext					phpEx
 	* @param \phpbb_extension_manager				$phpbb_extension_manager    phpbb_extension_manager
 	*/
-	public function __construct(\phpbb\auth\auth $auth, \phpbb\cache\service $cache, \phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\controller\helper $helper, \phpbb\event\dispatcher_interface $phpbb_dispatcher, $php_ext, $phpbb_extension_manager)
+	public function __construct(auth $auth, service $cache, config $config, driver_interface $db, helper $helper, dispatcher $phpbb_dispatcher, $php_ext, $phpbb_extension_manager)
 	{
 		$this->auth = $auth;
 		$this->cache = $cache;
