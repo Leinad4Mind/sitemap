@@ -128,7 +128,7 @@ class sitemap_module
 				$config->set('lotusjeff_sitemap_link', $request->variable('lotusjeff_sitemap_link', 1));
 				$config->set('lotusjeff_sitemap_additional', $request->variable('lotusjeff_sitemap_additional', 0));
 				$config->set('lotusjeff_sitemap_images', $request->variable('lotusjeff_sitemap_images', 1));
-				$config->set('lotusjeff_sitemap_forum_exclude', base64_encode(serialize($request->variable('lotusjeff_sitemap_forum_exclude', array(0)))));
+				$config->set('lotusjeff_sitemap_forum_exclude', serialize($request->variable('lotusjeff_sitemap_forum_exclude', array(0))));
 
 				if (empty($msg))
 				{
@@ -148,7 +148,7 @@ class sitemap_module
 			$template->assign_block_vars('lotusjeff_sitemap_forum_exclude_options', array(
 				'VALUE'			=> $link['forum_id'],
 				'LABEL'			=> $link['padding'] .$link['forum_name'],
-				'S_SELECTED'	=> in_array($link['forum_id'], unserialize(base64_decode($config['lotusjeff_sitemap_forum_exclude']))),
+				'S_SELECTED'	=> in_array($link['forum_id'], unserialize($config['lotusjeff_sitemap_forum_exclude'])),
 				'S_DISABLED' 	=> $link['disabled'],
 			));
 		}
